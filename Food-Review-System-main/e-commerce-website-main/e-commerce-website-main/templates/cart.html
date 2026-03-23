@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ message }}</h1>
+<div class="card">
+    <img src="{{ url_for('static', filename='images/' + product[5]) }}" alt="{{ product[1] }}">
+    <h2>{{ product[1] }}</h2>
+    <p>Category: {{ product[4] }}</p>
+    <p>💰 Price: ₹{{ dynamic_price(product[2], product[3]) }}</p>
+    <p>Remaining Stock: {{ product[3]-1 }}</p>
+</div>
+<h2>You may also like</h2>
+{% for r in recs %}
+<div class="card">
+    <img src="{{ url_for('static', filename='images/' + r[5]) }}" alt="{{ r[1] }}">
+    <h3>{{ r[1] }}</h3>
+    <p>Category: {{ r[4] }}</p>
+    <p>💰 Price: ₹{{ dynamic_price(r[2], r[3]) }}</p>
+    <a href="{{ url_for('buy', pid=r[0]) }}">Buy Now</a>
+</div>
+{% endfor %}
+<a href="{{ url_for('products') }}">Continue Shopping 🛒</a>
+{% endblock %}
